@@ -1,7 +1,7 @@
-for (var i = 1; i <= 81; i++) {
-  var value = "#" + String(i);
-  $(value).html(i);
-}
+// for (var i = 1; i <= 81; i++) {
+//   var value = "#" + String(i);
+//   $(value).html(i);
+// }
 
 const graph = {
   1: [10, 2],
