@@ -1,117 +1,86 @@
-// for (var i = 1; i <= 81; i++) {
-//   var value = "#" + String(i);
-//   $(value).html(i);
-// }
+// Declaration of the Adjacency-List
+const graph = {};
+// Declaration of Graph-Matrix and Size
+const graphMatrix = [];
+const matrixSize = 15;
 
-const graph = {
-  1: [10, 2],
-  2: [11, 1, 3],
-  3: [12, 2, 4],
-  4: [13, 3, 5],
-  5: [14, 4, 6],
-  6: [15, 5, 7],
-  7: [16, 6, 8],
-  8: [17, 7, 9],
-  9: [18, 8],
-  10: [1, 19, 11],
-  11: [2, 20, 10, 12],
-  12: [3, 21, 11, 13],
-  13: [4, 22, 12, 14],
-  14: [5, 23, 13, 15],
-  15: [6, 24, 14, 16],
-  16: [7, 25, 15, 17],
-  17: [8, 26, 16, 18],
-  18: [9, 27, 17],
-  19: [10, 28, 20],
-  20: [11, 29, 19, 21],
-  21: [12, 30, 20, 22],
-  22: [13, 31, 21, 23],
-  23: [14, 32, 22, 24],
-  24: [15, 33, 23, 25],
-  25: [16, 34, 24, 26],
-  26: [17, 35, 25, 27],
-  27: [18, 36, 26],
-  28: [19, 37, 29],
-  29: [20, 38, 28, 30],
-  30: [21, 39, 29, 31],
-  31: [22, 40, 30, 32],
-  32: [23, 41, 31, 33],
-  33: [23, 42, 32, 34],
-  34: [25, 43, 33, 35],
-  35: [26, 44, 34, 36],
-  36: [27, 45, 35],
-  37: [28, 38],
-  38: [29, 37, 39],
-  39: [30, 38, 40],
-  40: [31, 39, 41],
-  41: [32, 40, 42],
-  42: [33, 41, 43],
-  43: [34, 42, 44],
-  44: [35, 43, 45],
-  45: [36, 44],
-  //   46: [],
-  //   47: [],
-  //   48: [],
-  //   49: [],
-  //   50: [],
-  //   51: [],
-  //   52: [],
-  //   53: [],
-  //   54: [],
-  //   55: [],
-  //   56: [],
-  //   57: [],
-  //   58: [],
-  //   59: [],
-  //   60: [],
-  //   61: [],
-  //   62: [],
-  //   63: [],
-  //   64: [],
-  //   65: [],
-  //   66: [],
-  //   67: [],
-  //   68: [],
-  //   69: [],
-  //   70: [],
-  //   71: [],
-  //   72: [],
-  //   73: [],
-  //   74: [],
-  //   75: [],
-  //   76: [],
-  //   77: [],
-  //   78: [],
-  //   79: [],
-  //   80: [],
-  //   81: [],
-};
+// Setting the Graph-width w.r.t window width
+if (matrixSize * 21 < $(window).width()) {
+  var width = matrixSize * 21;
+}
+else {
+  var width = $(window).width();
+}
+$(".graph-container").width(width);
 
+//Filling the Graph-Matrix with Natural Numbers
+//w.r.t to the Matrix size provided
+var num = 0;
+for (var i = 0; i < matrixSize; i++) {
+  var row = [];
+  for (var j = 0; j < matrixSize; j++) {
+    row.push(++num);
+    let node = '<div class="node" id="' + num + '"></div>';
+    $(".graph-container").append(node);
+  }
+  graphMatrix.push(row);
+}
+
+// Function to Find and Add adjacent Nodes
+function addNode(row, col) {
+  let temp = [];
+  // top
+  if (row != 0 && graphMatrix[row - 1][col] != null)
+    temp.push(graphMatrix[row - 1][col]);
+  // right
+  if (col != matrixSize - 1 && graphMatrix[row][col + 1] != null)
+    temp.push(graphMatrix[row][col + 1]);
+  // bottom
+  if (row != matrixSize - 1 && graphMatrix[row + 1][col] != null)
+    temp.push(graphMatrix[row + 1][col]);
+  // left
+  if (col != 0 && graphMatrix[row][col - 1] != null)
+    temp.push(graphMatrix[row][col - 1]);
+
+  let current = graphMatrix[row][col];
+  graph[current] = temp;
+}
+
+// Filling the Adjacency-List with the Matrix as Structural reference
+for (let row = 0; row < matrixSize; row++)
+  for (let col = 0; col < matrixSize; col++) addNode(row, col);
+
+// Declaring the Input stucture - Starting and Ending Node
 let input = {
   src: null,
   dest: null,
 };
 
-let visitingAnimation = {
-  "border-radius": 50,
-  width: 46,
-  height: 46,
-  margin: 2,
-};
+// test-code
+// for (var i = 1; i <= matrixSize * matrixSize; i++) {
+//   var value = "#" + String(i);
+//   $(value).html(i);
+// }
 
+// Getting input from Mouse-Click
 addEventListener("click", function (event) {
-  var element = event.target;
-  if (input.src === null && element.classList.contains("node")) {
-    element.style.backgroundColor = "darkred";
-    input.src = parseInt(element.id);
+  var target = event.target;
+  if (input.src === null && target.classList.contains("node")) {
+    target.style.backgroundColor = "#2E1258";
+    input.src = parseInt(target.id);
     console.log(input);
   } else if (
     input.dest === null &&
-    element.classList.contains("node") &&
-    element.id != input.src
+    target.classList.contains("node") &&
+    target.id != input.src
   ) {
-    element.style.backgroundColor = "darkblue";
-    input.dest = parseInt(element.id);
+    target.style.backgroundColor = "#DFEBED";
+    input.dest = parseInt(target.id);
     console.log(input);
   }
 });
+
+// Animation during the traversal
+let searchAnimation = {
+  "background-color": "#7045AF",
+}

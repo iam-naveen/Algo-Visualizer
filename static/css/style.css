@@ -6,36 +6,103 @@ body {
     height: 100%;
     box-sizing: border-box;
     font-family: monospace;
+    background-color: #182952;
+    color: white;
 
     align-items: center;
     justify-content: center;
+    padding: 2rem;
 }
 
-.container {
-    margin-top: 50px;
+.instructions {
     display: flex;
-    border-spacing: 5px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: normal;
+}
+
+.graph-container {
+    display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    width: 450px;
+    justify-content: center;
+    background-color: #6f45afaf;
+    border-radius: 1%;
+    padding: 2px;
 }
 
 .node {
     display: flex;
-    width: 26px;
-    height: 26px;
-    margin: 12px;
-    background-color: grey;
-    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin: .5px;
+    background-color: #2B3595;
+    border-radius: 20%;
 }
 
 .button-container {
-    margin: 50px 0 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.child {
+    display: flex;
+    flex-direction: row;
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.speed-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+}
+
+#speedInput {
+    margin-top: 10px;
+    width: 270px;
+    appearance: none;
+    background-color: #0f1a34;
+    border-radius: 15px;
+}
+
+#speedInput::-webkit-slider-thumb {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #E14594;
+    cursor: pointer;
+}
+
+#speedInput::-moz-range-thumb {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #E14594;
+    cursor: pointer;
+}
+
+.indicators {
+    display: flex;
+    justify-content: space-between;
+    width: 270px;
 }
 
 button {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     border-radius: 10px;
-    margin: 0 10px;
+    margin: 10px;
+    background-color: #E14594;
+    color: white;
+    font-weight: bold;
 }
 
 button:active {
